@@ -1,0 +1,10 @@
+- title: First Podcast
+  link: podcast01.mp3
+  description: Hello world
+  pub_date: 2015/07/03 20:00
+
+- title: Second Podcast
+  link: podcast02.mp3
+  description: Hello world again
+  pub_date: 2015/07/10 20:00
+
