@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="css/360player.css" />
     <link rel="stylesheet" type="text/css" href="css/360player-visualization.css" />
 
+    <link rel="stylesheet" type="text/css" href="css/custom.css" />
     <style type="text/css">
     .sm2-inline-list {width:256px; margin: auto;}
     /*.inline-sm {display: inline; float: right;}*/
@@ -90,11 +91,11 @@
                 <div class="col-lg-12">
                     <div class="intro-message">
                         <h1>{{.Current.Title}}</h1>
-                        <h3>{{.Current.Description}}</h3>
+                        <h3>{{trunc .Current.Description}}</h3>
                         <hr class="intro-divider">
                         <div class="sm2-inline-list">
                             <div class="ui360 ui360-vis">
-                                <a href="music/{{.Current.Link}}"></a>
+                                <a href="assets/{{.Current.Link}}"></a>
                             </div>
                         </div>
                     </div>
@@ -129,9 +130,9 @@
                     <h2 class="section-heading">{{ .Title}}
                     
                         </h2>
-                    <p class="lead">{{ .Description }}</p>
+                    <p class="lead">{{trunc .Description }}</p>
                     <div class="ui360 inline-sm">
-                            <a href="music/{{ .Link }}"></a>
+                            <a href="assets/{{ .Link }}"></a>
                         </div>
 
                 </div>
@@ -140,7 +141,7 @@
                 {{ else }}
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
                 {{ end }}
-                    <img class="img-responsive" src="music/{{ .Image }}" alt="">
+                    <img class="img-responsive" src="assets/{{ .Image }}" alt="">
                 </div>
             </div>
 
