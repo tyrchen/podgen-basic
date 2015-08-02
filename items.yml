@@ -1,10 +1,17 @@
 - title: First Podcast
   link: podcast01.mp3
+  image: podcast01.jpg
   description: Hello world
   pub_date: 2015/07/03 20:00
 
 - title: Second Podcast
   link: podcast02.mp3
+  image: podcast02.jpg
   description: Hello world again
   pub_date: 2015/07/10 20:00
 
+- title: Third Podcast
+  link: podcast03.mp3
+  image: podcast03.jpg
+  description: Hello world again
+  pub_date: 2015/07/10 20:00
