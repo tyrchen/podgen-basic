@@ -9,21 +9,24 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>awesome podcast</title>
+    <title>{{.Info.Title}}</title>
 
-    
+    <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    
+    <!-- Custom CSS -->
     <link href="css/landing-page.css" rel="stylesheet">
 
-    
+    <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-    
-    
-    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <link rel="stylesheet" type="text/css" href="css/flashblock.css" />
 
     <link rel="stylesheet" type="text/css" href="css/360player.css" />
@@ -31,7 +34,7 @@
 
     <style type="text/css">
     .sm2-inline-list {width:256px; margin: auto;}
-     
+    /*.inline-sm {display: inline; float: right;}*/
     h1 {text-align: center;}
 
 
@@ -41,10 +44,10 @@
 
 <body>
 
-    
+    <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
         <div class="container topnav">
-            
+            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -52,13 +55,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">awesome podcast</a>
+                <a class="navbar-brand topnav" href="#">{{.Info.Title}}</a>
             </div>
-            
+            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#current">Current Podcast</a>
+                        <a href="{{ .Home }}">Current Podcast</a>
                     </li>
                     <li>
                         <a href="#previous">Previous Pocasts</a>
@@ -68,14 +71,14 @@
                     </li>
                 </ul>
             </div>
-            
+            <!-- /.navbar-collapse -->
         </div>
-        
+        <!-- /.container -->
     </nav>
 
 
-    
-    
+    {{ if eq .Home "#current" }}
+    <!-- Header -->
     <a name="current"></a>
     <div class="intro-header">
         <div class="container">
@@ -83,12 +86,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-message">
-                        <h1>First Podcast</h1>
-                        <h3>Hello world</h3>
+                        <h1>{{.Current.Title}}</h1>
+                        <h3>{{.Current.Description}}</h3>
                         <hr class="intro-divider">
                         <div class="sm2-inline-list">
                             <div class="ui360 ui360-vis">
-                                <a href="music/podcast01.mp3"></a>
+                                <a href="music/{{.Current.Link}}"></a>
                             </div>
                         </div>
                     </div>
@@ -96,81 +99,54 @@
             </div>
 
         </div>
-        
+        <!-- /.container -->
 
     </div>
-    
-    
+    <!-- /.intro-header -->
+    {{ end }}
 
-    
+    <!-- Page Content -->
 
 	<a name="previous"></a>
     <h1>Previous Podcasts</h2>
-    
-    
-    
-    <div class="content-section-a">
+    {{ with .Podcasts}}
+    {{ range $index, $results := .}}
+    {{ $alt := alt $index }}
+    <div class="content-section-{{$alt}}">
         
         <div class="container">
             <div class="row">
-                
+                {{ if eq $alt "a" }}
                 <div class="col-lg-5 col-sm-6">
-                
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Second Podcast asdf asdf dafdsa fdsa
-                    
-                        </h2>
-                    <p class="lead">Hello world again</p>
-                    <div class="ui360 inline-sm">
-                            <a href="music/podcast02.mp3"></a>
-                        </div>
-
-                </div>
-                
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                
-                    <img class="img-responsive" src="music/podcast02.jpg" alt="">
-                </div>
-            </div>
-
-        </div>
-        
-
-    </div>
-    
-    
-    <div class="content-section-b">
-        
-        <div class="container">
-            <div class="row">
-                
+                {{ else }}
                 <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                
+                {{ end }}
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
-                    <h2 class="section-heading">Third Podcast
+                    <h2 class="section-heading">{{ .Title}}
                     
                         </h2>
-                    <p class="lead">Hello world again</p>
+                    <p class="lead">{{ .Description }}</p>
                     <div class="ui360 inline-sm">
-                            <a href="music/podcast03.mp3"></a>
+                            <a href="music/{{ .Link }}"></a>
                         </div>
 
                 </div>
-                
+                {{ if eq $alt "a" }}
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                {{ else }}
                 <div class="col-lg-5 col-sm-pull-6  col-sm-6">
-                
-                    <img class="img-responsive" src="music/podcast02.jpg" alt="">
+                {{ end }}
+                    <img class="img-responsive" src="music/{{ .Image }}" alt="">
                 </div>
             </div>
 
         </div>
-        
+        <!-- /.container -->
 
     </div>
-    
-    
+    {{ end }}
+    {{ end }}
     <div class="text-center">
         <ul class="pagination">
             <li><a href="#">&laquo;</a></li>
@@ -208,12 +184,12 @@
             </div>
 
         </div>
-        
+        <!-- /.container -->
 
     </div>
-    
+    <!-- /.banner -->
 
-    
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row">
@@ -241,18 +217,18 @@
         </div>
     </footer>
 
-    
+    <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
-    
+    <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    
-    
+    <!-- special IE-only canvas fix -->
+    <!--[if IE]><script type="text/javascript" src="js/excanvas.js"></script><![endif]-->
 
-    
+    <!-- Apache-licensed animation library -->
     <script type="text/javascript" src="js/berniecode-animator.js"></script>
 
-    
+    <!-- the core stuff -->
     <script type="text/javascript" src="js/soundmanager2.js"></script>
     <script type="text/javascript" src="js/360player.js"></script>
 </body>
